@@ -28,9 +28,7 @@ const statusCounts = computed<Record<OrderStatus, number>>(() => {
   return counts as Record<OrderStatus, number>;
 });
 
-const recentOrders = computed(() =>
-  [...orders.value].sort((a, b) => b.id - a.id).slice(0, 3)
-);
+const recentOrders = computed(() => [...orders.value].sort((a, b) => b.id - a.id).slice(0, 3));
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-GB", {
@@ -65,7 +63,9 @@ const STAT_STATUSES: { status: OrderStatus; label: string; color: string }[] = [
       <h3>Entities in this codebase</h3>
       <ul>
         <li><strong>Supplier</strong> — a company that provides ingredients.</li>
-        <li><strong>Ingredient</strong> — a product offered by a supplier, with a unit and price.</li>
+        <li>
+          <strong>Ingredient</strong> — a product offered by a supplier, with a unit and price.
+        </li>
         <li><strong>Buyer</strong> — a buying company with a linked Django user account.</li>
         <li>
           <strong>Order</strong> — a set of order items (ingredient + quantity + snapshot price)
@@ -79,13 +79,13 @@ const STAT_STATUSES: { status: OrderStatus; label: string; color: string }[] = [
         </li>
       </ul>
       <p class="session-prompt">
-        During your session you will be given a <strong>specific use case</strong> to implement.
-        Use this page, the API docs in the README, and the existing code as a starting point.
+        During your session you will be given a <strong>specific use case</strong> to implement. Use
+        this page, the API docs in the README, and the existing code as a starting point.
       </p>
     </section>
 
     <!-- Buyer profile strip -->
-    <section class="profile-card" v-if="profile">
+    <section v-if="profile" class="profile-card">
       <div class="profile-field">
         <p class="label">Company</p>
         <p class="value">{{ profile.company_name }}</p>
@@ -181,7 +181,7 @@ const STAT_STATUSES: { status: OrderStatus; label: string; color: string }[] = [
 
 /* Challenge overview */
 .challenge-overview {
-  background: #EDE9FE;
+  background: #ede9fe;
   border-left: 4px solid var(--purple);
   border-radius: 0 8px 8px 0;
   padding: 1.5rem;
@@ -302,7 +302,7 @@ const STAT_STATUSES: { status: OrderStatus; label: string; color: string }[] = [
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
-  background: #FAFAFA;
+  background: #fafafa;
   border-bottom: 1px solid var(--border);
 }
 
@@ -322,7 +322,7 @@ const STAT_STATUSES: { status: OrderStatus; label: string; color: string }[] = [
 }
 
 .clickable-row:hover {
-  background: #F7F6FC;
+  background: #f7f6fc;
 }
 
 /* Badges */
@@ -336,10 +336,28 @@ const STAT_STATUSES: { status: OrderStatus; label: string; color: string }[] = [
   letter-spacing: 0.05em;
 }
 
-.badge--pending { background: #FEF3C7; color: #92400E; }
-.badge--confirmed { background: #DBEAFE; color: #1D4ED8; }
-.badge--processing { background: #EDE9FE; color: #5B21B6; }
-.badge--shipped { background: #FFEDD5; color: #9A3412; }
-.badge--delivered { background: #D1FAE5; color: #065F46; }
-.badge--cancelled { background: #FEE2E2; color: #991B1B; }
+.badge--pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+.badge--confirmed {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.badge--processing {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+.badge--shipped {
+  background: #ffedd5;
+  color: #9a3412;
+}
+.badge--delivered {
+  background: #d1fae5;
+  color: #065f46;
+}
+.badge--cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
 </style>

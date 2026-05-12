@@ -1,4 +1,5 @@
 from rest_framework.generics import RetrieveAPIView
+
 from .models import Buyer
 from .serializers import BuyerProfileSerializer
 

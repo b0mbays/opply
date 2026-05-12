@@ -34,7 +34,7 @@ async function handleSubmit() {
         <h1>Opply</h1>
         <p>Code Challenge</p>
       </div>
-      <form @submit.prevent="handleSubmit" class="login-form">
+      <form class="login-form" @submit.prevent="handleSubmit">
         <div class="field">
           <label for="username">Username</label>
           <input
@@ -128,7 +128,9 @@ async function handleSubmit() {
   padding: 0.65rem 0.875rem;
   font-size: 0.9rem;
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
   color: var(--text);
 }
 

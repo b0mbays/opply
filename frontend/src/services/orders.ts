@@ -17,7 +17,7 @@ export async function transitionOrder(id: number, status: string): Promise<Order
 }
 
 export async function createOrder(
-  items: { ingredient_id: number; quantity: number }[]
+  items: { ingredient_id: number; quantity: number }[],
 ): Promise<OrderDetail> {
   const response = await api.post<OrderDetail>("/api/orders/", { items });
   return response.data;

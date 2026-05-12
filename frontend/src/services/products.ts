@@ -14,7 +14,7 @@ export async function fetchProduct(id: number): Promise<ProductDetail> {
 export async function createProduct(
   name: string,
   description: string,
-  ingredients: { ingredient_id: number; quantity: string }[]
+  ingredients: { ingredient_id: number; quantity: string }[],
 ): Promise<ProductDetail> {
   const response = await api.post<ProductDetail>("/api/products/", {
     name,
@@ -30,7 +30,7 @@ export async function updateProduct(
     name?: string;
     description?: string;
     ingredients?: { ingredient_id: number; quantity: string }[];
-  }
+  },
 ): Promise<ProductDetail> {
   const response = await api.patch<ProductDetail>(`/api/products/${id}/`, data);
   return response.data;

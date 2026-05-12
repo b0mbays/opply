@@ -3,12 +3,14 @@ from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from ingredients.models import Ingredient
+
 from .models import Order, OrderItem
 from .serializers import (
-    OrderSerializer,
-    OrderDetailSerializer,
     OrderCreateSerializer,
+    OrderDetailSerializer,
+    OrderSerializer,
 )
 
 
@@ -42,7 +44,9 @@ class OrderDetailView(RetrieveAPIView):
     serializer_class = OrderDetailSerializer
 
     def get_queryset(self):
-        return Order.objects.filter(buyer=self.request.user.buyer_profile).prefetch_related("items__ingredient__supplier")
+        return Order.objects.filter(buyer=self.request.user.buyer_profile).prefetch_related(
+            "items__ingredient__supplier"
+        )
 
 
 class OrderTransitionView(APIView):

@@ -1,4 +1,5 @@
 from django.db import models
+
 from buyers.models import Buyer
 from ingredients.models import Ingredient
 
@@ -15,8 +16,12 @@ class Product(models.Model):
 
 
 class ProductIngredient(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_ingredients")
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.PROTECT, related_name="product_ingredients")
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="product_ingredients"
+    )
+    ingredient = models.ForeignKey(
+        Ingredient, on_delete=models.PROTECT, related_name="product_ingredients"
+    )
     quantity = models.DecimalField(max_digits=10, decimal_places=3)
 
     class Meta:

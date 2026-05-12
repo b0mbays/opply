@@ -44,10 +44,7 @@ const allowedTransitions = computed<OrderStatus[]>(() => {
 
 const total = computed(() => {
   if (!order.value) return "0.00";
-  const sum = order.value.items.reduce(
-    (acc, item) => acc + parseFloat(item.line_total),
-    0
-  );
+  const sum = order.value.items.reduce((acc, item) => acc + parseFloat(item.line_total), 0);
   return sum.toFixed(2);
 });
 
@@ -73,8 +70,7 @@ async function doTransition(status: OrderStatus) {
   try {
     order.value = await transitionOrder(order.value.id, status);
   } catch (e: unknown) {
-    transitionError.value =
-      e instanceof Error ? e.message : "Transition failed.";
+    transitionError.value = e instanceof Error ? e.message : "Transition failed.";
   } finally {
     transitioning.value = false;
   }
@@ -114,24 +110,35 @@ function transitionLabel(status: OrderStatus): string {
       <p class="order-meta">Placed on {{ formatDate(order.created_at) }}</p>
 
       <!-- Status stepper -->
-      <div class="stepper-wrap" v-if="!isCancelled">
+      <div v-if="!isCancelled" class="stepper-wrap">
         <div class="stepper">
           <template v-for="(step, i) in STEPS" :key="step">
             <div :class="stepClass(i)">
               <div class="step-circle">
-                <svg v-if="i < currentStepIndex" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
+                <svg
+                  v-if="i < currentStepIndex"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
               <p class="step-label">{{ step }}</p>
             </div>
-            <div v-if="i < STEPS.length - 1" :class="['step-line', i < currentStepIndex ? 'step-line--done' : '']" />
+            <div
+              v-if="i < STEPS.length - 1"
+              :class="['step-line', i < currentStepIndex ? 'step-line--done' : '']"
+            />
           </template>
         </div>
       </div>
-      <div v-else class="cancelled-note">
-        This order was cancelled.
-      </div>
+      <div v-else class="cancelled-note">This order was cancelled.</div>
 
       <!-- Two-column: breakdown + quick actions -->
       <div class="two-col">
@@ -178,7 +185,10 @@ function transitionLabel(status: OrderStatus): string {
               <button
                 v-for="next in allowedTransitions"
                 :key="next"
-                :class="['btn-transition', next === 'CANCELLED' ? 'btn-transition--danger' : 'btn-transition--primary']"
+                :class="[
+                  'btn-transition',
+                  next === 'CANCELLED' ? 'btn-transition--danger' : 'btn-transition--primary',
+                ]"
                 :disabled="transitioning"
                 @click="doTransition(next)"
               >
@@ -292,8 +302,8 @@ function transitionLabel(status: OrderStatus): string {
 
 .step--future .step-circle {
   background: transparent;
-  border: 2px solid #D1D5DB;
-  color: #D1D5DB;
+  border: 2px solid #d1d5db;
+  color: #d1d5db;
 }
 
 .step-label {
@@ -306,14 +316,20 @@ function transitionLabel(status: OrderStatus): string {
   white-space: nowrap;
 }
 
-.step--done .step-label { color: var(--purple); }
-.step--current .step-label { color: var(--teal); }
-.step--future .step-label { color: #9CA3AF; }
+.step--done .step-label {
+  color: var(--purple);
+}
+.step--current .step-label {
+  color: var(--teal);
+}
+.step--future .step-label {
+  color: #9ca3af;
+}
 
 .step-line {
   flex: 1;
   height: 2px;
-  background: #E5E7EB;
+  background: #e5e7eb;
   margin-top: 15px;
   align-self: flex-start;
   min-width: 20px;
@@ -324,11 +340,11 @@ function transitionLabel(status: OrderStatus): string {
 }
 
 .cancelled-note {
-  background: #FEE2E2;
-  border: 1px solid #FECACA;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
   border-radius: 8px;
   padding: 1rem 1.25rem;
-  color: #991B1B;
+  color: #991b1b;
   font-size: 0.875rem;
   font-weight: 500;
 }
@@ -375,7 +391,7 @@ function transitionLabel(status: OrderStatus): string {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
-  background: #FAFAFA;
+  background: #fafafa;
   border-bottom: 1px solid var(--border);
 }
 
@@ -421,7 +437,7 @@ function transitionLabel(status: OrderStatus): string {
 }
 
 .actions-card {
-  background: #EDE9FE;
+  background: #ede9fe;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1.25rem;
@@ -464,7 +480,9 @@ function transitionLabel(status: OrderStatus): string {
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, opacity 0.15s;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
   text-align: left;
 }
 
@@ -483,18 +501,18 @@ function transitionLabel(status: OrderStatus): string {
 }
 
 .btn-transition--danger {
-  background: #FEE2E2;
-  color: #991B1B;
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 .btn-transition--danger:hover:not(:disabled) {
-  background: #FECACA;
+  background: #fecaca;
 }
 
 .transition-error {
   margin: 0;
   font-size: 0.8rem;
-  color: #DC2626;
+  color: #dc2626;
 }
 
 .btn-back {
@@ -523,10 +541,28 @@ function transitionLabel(status: OrderStatus): string {
   letter-spacing: 0.05em;
 }
 
-.badge--pending { background: #FEF3C7; color: #92400E; }
-.badge--confirmed { background: #DBEAFE; color: #1D4ED8; }
-.badge--processing { background: #EDE9FE; color: #5B21B6; }
-.badge--shipped { background: #FFEDD5; color: #9A3412; }
-.badge--delivered { background: #D1FAE5; color: #065F46; }
-.badge--cancelled { background: #FEE2E2; color: #991B1B; }
+.badge--pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+.badge--confirmed {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.badge--processing {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+.badge--shipped {
+  background: #ffedd5;
+  color: #9a3412;
+}
+.badge--delivered {
+  background: #d1fae5;
+  color: #065f46;
+}
+.badge--cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
 </style>

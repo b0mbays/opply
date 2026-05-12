@@ -1,4 +1,5 @@
 from django.db import models
+
 from buyers.models import Buyer
 from ingredients.models import Ingredient
 

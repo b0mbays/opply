@@ -74,7 +74,7 @@ const selectedIngredients = computed(() =>
   allIngredients.value.filter((ing) => {
     const q = parseFloat(editQuantities.value[ing.id] ?? "0");
     return q > 0;
-  })
+  }),
 );
 
 async function save() {
@@ -133,14 +133,16 @@ function formatDate(iso: string): string {
 
     <div v-if="loading" class="loading">Loading…</div>
     <div v-else-if="product" class="content">
-
       <!-- View mode -->
       <template v-if="!editing">
         <div class="heading-row">
           <h1 class="page-title">{{ product.name }}</h1>
         </div>
         <p v-if="product.description" class="product-description">{{ product.description }}</p>
-        <p class="product-meta">Created {{ formatDate(product.created_at) }} · Updated {{ formatDate(product.updated_at) }}</p>
+        <p class="product-meta">
+          Created {{ formatDate(product.created_at) }} · Updated
+          {{ formatDate(product.updated_at) }}
+        </p>
 
         <div class="two-col">
           <!-- Ingredients table -->
@@ -176,11 +178,7 @@ function formatDate(iso: string): string {
               <button class="btn-action btn-action--primary" @click="startEdit">
                 Edit Product
               </button>
-              <button
-                class="btn-action btn-action--danger"
-                :disabled="deleting"
-                @click="doDelete"
-              >
+              <button class="btn-action btn-action--danger" :disabled="deleting" @click="doDelete">
                 {{ deleting ? "Deleting…" : "Delete Product" }}
               </button>
             </div>
@@ -202,21 +200,11 @@ function formatDate(iso: string): string {
               <p class="card-label">Product Details</p>
               <div class="field">
                 <label class="field-label" for="edit-name">Name *</label>
-                <input
-                  id="edit-name"
-                  v-model="editName"
-                  class="text-input"
-                  type="text"
-                />
+                <input id="edit-name" v-model="editName" class="text-input" type="text" />
               </div>
               <div class="field">
                 <label class="field-label" for="edit-desc">Description</label>
-                <textarea
-                  id="edit-desc"
-                  v-model="editDescription"
-                  class="textarea"
-                  rows="3"
-                />
+                <textarea id="edit-desc" v-model="editDescription" class="textarea" rows="3" />
               </div>
             </section>
 
@@ -230,7 +218,11 @@ function formatDate(iso: string): string {
               </div>
 
               <div v-if="!editingIngredients" class="ingredients-preview">
-                <p class="preview-note">Current: {{ product.ingredients.length }} ingredient{{ product.ingredients.length !== 1 ? 's' : '' }}. Click "Replace ingredients" to change them.</p>
+                <p class="preview-note">
+                  Current: {{ product.ingredients.length }} ingredient{{
+                    product.ingredients.length !== 1 ? "s" : ""
+                  }}. Click "Replace ingredients" to change them.
+                </p>
               </div>
 
               <div v-else-if="loadingIngredients" class="loading">Loading…</div>
@@ -277,29 +269,25 @@ function formatDate(iso: string): string {
               <p class="card-label">Save Changes</p>
 
               <div v-if="editingIngredients">
-                <p class="summary-section-label">New Ingredients ({{ selectedIngredients.length }})</p>
+                <p class="summary-section-label">
+                  New Ingredients ({{ selectedIngredients.length }})
+                </p>
                 <div v-if="selectedIngredients.length === 0" class="summary-empty">
                   No ingredients selected.
                 </div>
                 <div v-else class="summary-items">
-                  <div
-                    v-for="ing in selectedIngredients"
-                    :key="ing.id"
-                    class="summary-item"
-                  >
+                  <div v-for="ing in selectedIngredients" :key="ing.id" class="summary-item">
                     <span class="summary-item-name">{{ ing.name }}</span>
-                    <span class="summary-item-qty">× {{ editQuantities[ing.id] }} {{ ing.unit }}</span>
+                    <span class="summary-item-qty"
+                      >× {{ editQuantities[ing.id] }} {{ ing.unit }}</span
+                    >
                   </div>
                 </div>
               </div>
 
               <p v-if="saveError" class="save-error">{{ saveError }}</p>
 
-              <button
-                class="btn-submit"
-                :disabled="saving || !editName.trim()"
-                @click="save"
-              >
+              <button class="btn-submit" :disabled="saving || !editName.trim()" @click="save">
                 {{ saving ? "Saving…" : "Save Changes" }}
               </button>
               <button class="btn-cancel" @click="cancelEdit">Cancel</button>
@@ -413,7 +401,7 @@ function formatDate(iso: string): string {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
-  background: #FAFAFA;
+  background: #fafafa;
   border-bottom: 1px solid var(--border);
 }
 
@@ -436,7 +424,7 @@ function formatDate(iso: string): string {
 }
 
 .row-active {
-  background: #F5F3FF;
+  background: #f5f3ff;
 }
 
 .qty-input {
@@ -448,7 +436,9 @@ function formatDate(iso: string): string {
   text-align: center;
   outline: none;
   color: var(--text);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .qty-input:focus {
@@ -465,7 +455,7 @@ function formatDate(iso: string): string {
 }
 
 .actions-card {
-  background: #EDE9FE;
+  background: #ede9fe;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1.25rem;
@@ -490,7 +480,9 @@ function formatDate(iso: string): string {
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, opacity 0.15s;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
   text-align: left;
 }
 
@@ -509,12 +501,12 @@ function formatDate(iso: string): string {
 }
 
 .btn-action--danger {
-  background: #FEE2E2;
-  color: #991B1B;
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 .btn-action--danger:hover:not(:disabled) {
-  background: #FECACA;
+  background: #fecaca;
 }
 
 .btn-back {
@@ -592,7 +584,9 @@ function formatDate(iso: string): string {
   outline: none;
   color: var(--text);
   background: var(--bg);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
   font-family: inherit;
   width: 100%;
   box-sizing: border-box;
@@ -623,7 +617,9 @@ function formatDate(iso: string): string {
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .btn-toggle:hover {
@@ -632,7 +628,7 @@ function formatDate(iso: string): string {
 }
 
 .ingredients-preview {
-  background: #F7F6FC;
+  background: #f7f6fc;
   border-radius: 6px;
   padding: 0.75rem 1rem;
 }
@@ -645,7 +641,7 @@ function formatDate(iso: string): string {
 
 /* Summary card */
 .summary-card {
-  background: #EDE9FE;
+  background: #ede9fe;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1.5rem;
@@ -693,7 +689,7 @@ function formatDate(iso: string): string {
 .save-error {
   margin: 0;
   font-size: 0.8rem;
-  color: #DC2626;
+  color: #dc2626;
 }
 
 .btn-submit {
@@ -706,7 +702,9 @@ function formatDate(iso: string): string {
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.15s, opacity 0.15s;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
 }
 
 .btn-submit:hover:not(:disabled) {

@@ -1,5 +1,7 @@
 from rest_framework import serializers
+
 from ingredients.serializers import IngredientSerializer
+
 from .models import Product, ProductIngredient
 
 
@@ -28,7 +30,9 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductDetailSerializer(ProductSerializer):
-    ingredients = ProductIngredientReadSerializer(source="product_ingredients", many=True, read_only=True)
+    ingredients = ProductIngredientReadSerializer(
+        source="product_ingredients", many=True, read_only=True
+    )
 
     class Meta(ProductSerializer.Meta):
         fields = ProductSerializer.Meta.fields + ["ingredients", "updated_at"]

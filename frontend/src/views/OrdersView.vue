@@ -4,7 +4,6 @@ import { useRouter } from "vue-router";
 import type { Order } from "../types";
 import { fetchOrders } from "../services/orders";
 
-
 const router = useRouter();
 const orders = ref<Order[]>([]);
 const loading = ref(true);
@@ -66,9 +65,7 @@ function goToDetail(id: number) {
             <td>£{{ order.total_amount }}</td>
             <td>{{ formatDate(order.created_at) }}</td>
             <td @click.stop>
-              <button class="btn-outline" @click="goToDetail(order.id)">
-                View
-              </button>
+              <button class="btn-outline" @click="goToDetail(order.id)">View</button>
             </td>
           </tr>
         </tbody>
@@ -134,7 +131,7 @@ function goToDetail(id: number) {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
-  background: #FAFAFA;
+  background: #fafafa;
   border-bottom: 1px solid var(--border);
 }
 
@@ -154,7 +151,7 @@ function goToDetail(id: number) {
 }
 
 .clickable-row:hover {
-  background: #F7F6FC;
+  background: #f7f6fc;
 }
 
 .order-id {
@@ -171,7 +168,9 @@ function goToDetail(id: number) {
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .btn-outline:hover {
@@ -190,10 +189,28 @@ function goToDetail(id: number) {
   letter-spacing: 0.05em;
 }
 
-.badge--pending { background: #FEF3C7; color: #92400E; }
-.badge--confirmed { background: #DBEAFE; color: #1D4ED8; }
-.badge--processing { background: #EDE9FE; color: #5B21B6; }
-.badge--shipped { background: #FFEDD5; color: #9A3412; }
-.badge--delivered { background: #D1FAE5; color: #065F46; }
-.badge--cancelled { background: #FEE2E2; color: #991B1B; }
+.badge--pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+.badge--confirmed {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.badge--processing {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+.badge--shipped {
+  background: #ffedd5;
+  color: #9a3412;
+}
+.badge--delivered {
+  background: #d1fae5;
+  color: #065f46;
+}
+.badge--cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
 </style>

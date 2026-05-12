@@ -36,8 +36,8 @@ watch(selectedSupplierId, async (id) => {
   loadingIngredients.value = false;
 });
 
-const selectedSupplier = computed(() =>
-  suppliers.value.find((s) => s.id === selectedSupplierId.value) ?? null
+const selectedSupplier = computed(
+  () => suppliers.value.find((s) => s.id === selectedSupplierId.value) ?? null,
 );
 
 // Items in the cart (quantity > 0)
@@ -48,13 +48,11 @@ const cartItems = computed(() =>
       ingredient: ing,
       quantity: quantities.value[ing.id],
       lineTotal: (parseFloat(ing.price_per_unit) * quantities.value[ing.id]).toFixed(2),
-    }))
+    })),
 );
 
 const orderTotal = computed(() =>
-  cartItems.value
-    .reduce((sum, item) => sum + parseFloat(item.lineTotal), 0)
-    .toFixed(2)
+  cartItems.value.reduce((sum, item) => sum + parseFloat(item.lineTotal), 0).toFixed(2),
 );
 
 const canSubmit = computed(() => cartItems.value.length > 0 && !submitting.value);
@@ -79,8 +77,7 @@ async function submit() {
     const order = await createOrder(items);
     router.push({ name: "order-detail", params: { id: order.id } });
   } catch (e: unknown) {
-    submitError.value =
-      e instanceof Error ? e.message : "Failed to place order. Please try again.";
+    submitError.value = e instanceof Error ? e.message : "Failed to place order. Please try again.";
     submitting.value = false;
   }
 }
@@ -107,7 +104,9 @@ async function submit() {
           <select
             class="supplier-select"
             :value="selectedSupplierId ?? ''"
-            @change="selectedSupplierId = Number(($event.target as HTMLSelectElement).value) || null"
+            @change="
+              selectedSupplierId = Number(($event.target as HTMLSelectElement).value) || null
+            "
           >
             <option value="">— Choose a supplier —</option>
             <option v-for="s in suppliers" :key="s.id" :value="s.id">
@@ -165,9 +164,7 @@ async function submit() {
         <div class="summary-card">
           <p class="card-label">Order Summary</p>
 
-          <div v-if="cartItems.length === 0" class="summary-empty">
-            No items added yet.
-          </div>
+          <div v-if="cartItems.length === 0" class="summary-empty">No items added yet.</div>
           <div v-else>
             <div class="summary-supplier">
               <span class="summary-sup-label">Supplier</span>
@@ -175,11 +172,7 @@ async function submit() {
             </div>
 
             <div class="summary-items">
-              <div
-                v-for="item in cartItems"
-                :key="item.ingredient.id"
-                class="summary-item"
-              >
+              <div v-for="item in cartItems" :key="item.ingredient.id" class="summary-item">
                 <span class="summary-item-name">{{ item.ingredient.name }}</span>
                 <span class="summary-item-qty">×{{ item.quantity }}</span>
                 <span class="summary-item-total">£{{ item.lineTotal }}</span>
@@ -194,17 +187,11 @@ async function submit() {
 
           <p v-if="submitError" class="submit-error">{{ submitError }}</p>
 
-          <button
-            class="btn-submit"
-            :disabled="!canSubmit"
-            @click="submit"
-          >
+          <button class="btn-submit" :disabled="!canSubmit" @click="submit">
             {{ submitting ? "Placing order…" : "Place Order" }}
           </button>
 
-          <button class="btn-cancel" @click="router.push({ name: 'orders' })">
-            Cancel
-          </button>
+          <button class="btn-cancel" @click="router.push({ name: 'orders' })">Cancel</button>
         </div>
       </div>
     </div>
@@ -293,7 +280,9 @@ async function submit() {
   color: var(--text);
   background: var(--bg);
   cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
   width: 100%;
 }
 
@@ -328,7 +317,7 @@ async function submit() {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
-  background: #FAFAFA;
+  background: #fafafa;
   border-bottom: 1px solid var(--border);
 }
 
@@ -343,7 +332,7 @@ async function submit() {
 }
 
 .row-active {
-  background: #F5F3FF;
+  background: #f5f3ff;
 }
 
 .ing-name {
@@ -359,7 +348,9 @@ async function submit() {
   text-align: center;
   outline: none;
   color: var(--text);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .qty-input:focus {
@@ -369,7 +360,7 @@ async function submit() {
 
 /* Summary card */
 .summary-card {
-  background: #EDE9FE;
+  background: #ede9fe;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1.5rem;
@@ -449,7 +440,7 @@ async function submit() {
 .submit-error {
   margin: 0;
   font-size: 0.8rem;
-  color: #DC2626;
+  color: #dc2626;
 }
 
 .btn-submit {
@@ -462,7 +453,9 @@ async function submit() {
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.15s, opacity 0.15s;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
 }
 
 .btn-submit:hover:not(:disabled) {

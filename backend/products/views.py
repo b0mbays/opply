@@ -1,14 +1,16 @@
+from django.db import transaction
 from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
-from django.db import transaction
+
 from ingredients.models import Ingredient
+
 from .models import Product, ProductIngredient
 from .serializers import (
-    ProductSerializer,
     ProductDetailSerializer,
     ProductIngredientWriteSerializer,
+    ProductSerializer,
 )
 
 
@@ -16,7 +18,9 @@ class ProductListCreateView(ListCreateAPIView):
     serializer_class = ProductSerializer
 
     def get_queryset(self):
-        return Product.objects.filter(buyer=self.request.user.buyer_profile).prefetch_related("product_ingredients")
+        return Product.objects.filter(buyer=self.request.user.buyer_profile).prefetch_related(
+            "product_ingredients"
+        )
 
     def create(self, request: Request, *args, **kwargs) -> Response:
         name = request.data.get("name", "")
@@ -24,7 +28,9 @@ class ProductListCreateView(ListCreateAPIView):
         ingredients_data = request.data.get("ingredients", [])
 
         if not name:
-            return Response({"name": ["This field is required."]}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"name": ["This field is required."]}, status=status.HTTP_400_BAD_REQUEST
+            )
 
         ingredient_serializer = ProductIngredientWriteSerializer(data=ingredients_data, many=True)
         ingredient_serializer.is_valid(raise_exception=True)
@@ -62,7 +68,9 @@ class ProductDetailView(RetrieveUpdateDestroyAPIView):
             product.description = request.data["description"]
 
         if "ingredients" in request.data:
-            ingredient_serializer = ProductIngredientWriteSerializer(data=request.data["ingredients"], many=True)
+            ingredient_serializer = ProductIngredientWriteSerializer(
+                data=request.data["ingredients"], many=True
+            )
             ingredient_serializer.is_valid(raise_exception=True)
 
             with transaction.atomic():

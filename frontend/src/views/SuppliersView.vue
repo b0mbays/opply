@@ -43,10 +43,8 @@ function goToDetail(id: number) {
             <td class="supplier-name">{{ supplier.name }}</td>
             <td class="description">{{ supplier.description }}</td>
             <td>{{ supplier.ingredient_count }}</td>
-            <td @click.stop class="actions-cell">
-              <button class="btn-outline" @click="goToDetail(supplier.id)">
-                View Details
-              </button>
+            <td class="actions-cell" @click.stop>
+              <button class="btn-outline" @click="goToDetail(supplier.id)">View Details</button>
               <button
                 class="btn-primary"
                 @click="router.push({ name: 'order-create', query: { supplier: supplier.id } })"
@@ -95,7 +93,7 @@ function goToDetail(id: number) {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
-  background: #FAFAFA;
+  background: #fafafa;
   border-bottom: 1px solid var(--border);
 }
 
@@ -115,7 +113,7 @@ function goToDetail(id: number) {
 }
 
 .clickable-row:hover {
-  background: #F7F6FC;
+  background: #f7f6fc;
 }
 
 .supplier-name {
@@ -143,7 +141,9 @@ function goToDetail(id: number) {
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
   white-space: nowrap;
 }
 

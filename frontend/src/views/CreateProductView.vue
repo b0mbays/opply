@@ -24,11 +24,11 @@ const selectedIngredients = computed(() =>
   allIngredients.value.filter((ing) => {
     const q = parseFloat(quantities.value[ing.id] ?? "0");
     return q > 0;
-  })
+  }),
 );
 
 const canSubmit = computed(
-  () => name.value.trim().length > 0 && selectedIngredients.value.length > 0 && !submitting.value
+  () => name.value.trim().length > 0 && selectedIngredients.value.length > 0 && !submitting.value,
 );
 
 function setQty(ingredientId: number, value: string) {
@@ -154,11 +154,7 @@ async function submit() {
           <div v-else class="summary-ingredients">
             <p class="summary-section-label">Ingredients ({{ selectedIngredients.length }})</p>
             <div class="summary-items">
-              <div
-                v-for="ing in selectedIngredients"
-                :key="ing.id"
-                class="summary-item"
-              >
+              <div v-for="ing in selectedIngredients" :key="ing.id" class="summary-item">
                 <span class="summary-item-name">{{ ing.name }}</span>
                 <span class="summary-item-qty">× {{ quantities[ing.id] }} {{ ing.unit }}</span>
               </div>
@@ -167,17 +163,11 @@ async function submit() {
 
           <p v-if="submitError" class="submit-error">{{ submitError }}</p>
 
-          <button
-            class="btn-submit"
-            :disabled="!canSubmit"
-            @click="submit"
-          >
+          <button class="btn-submit" :disabled="!canSubmit" @click="submit">
             {{ submitting ? "Creating…" : "Create Product" }}
           </button>
 
-          <button class="btn-cancel" @click="router.push({ name: 'products' })">
-            Cancel
-          </button>
+          <button class="btn-cancel" @click="router.push({ name: 'products' })">Cancel</button>
         </div>
       </div>
     </div>
@@ -275,7 +265,9 @@ async function submit() {
   outline: none;
   color: var(--text);
   background: var(--bg);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
   font-family: inherit;
   width: 100%;
   box-sizing: border-box;
@@ -316,7 +308,7 @@ async function submit() {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
-  background: #FAFAFA;
+  background: #fafafa;
   border-bottom: 1px solid var(--border);
 }
 
@@ -331,7 +323,7 @@ async function submit() {
 }
 
 .row-active {
-  background: #F5F3FF;
+  background: #f5f3ff;
 }
 
 .ing-name {
@@ -351,7 +343,9 @@ async function submit() {
   text-align: center;
   outline: none;
   color: var(--text);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .qty-input:focus {
@@ -361,7 +355,7 @@ async function submit() {
 
 /* Summary card */
 .summary-card {
-  background: #EDE9FE;
+  background: #ede9fe;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1.5rem;
@@ -422,7 +416,7 @@ async function submit() {
 .submit-error {
   margin: 0;
   font-size: 0.8rem;
-  color: #DC2626;
+  color: #dc2626;
 }
 
 .btn-submit {
@@ -435,7 +429,9 @@ async function submit() {
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.15s, opacity 0.15s;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
 }
 
 .btn-submit:hover:not(:disabled) {

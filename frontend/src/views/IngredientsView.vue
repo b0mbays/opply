@@ -78,7 +78,9 @@ const filtered = computed(() => {
   font-size: 0.875rem;
   outline: none;
   width: 240px;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
   color: var(--text);
   background: var(--white);
 }
@@ -114,7 +116,7 @@ const filtered = computed(() => {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
-  background: #FAFAFA;
+  background: #fafafa;
   border-bottom: 1px solid var(--border);
 }
 

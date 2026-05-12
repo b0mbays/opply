@@ -1,8 +1,10 @@
 from django.db.models import Count
 from rest_framework.generics import ListAPIView, RetrieveAPIView
+
+from ingredients.serializers import IngredientSerializer
+
 from .models import Supplier
 from .serializers import SupplierSerializer
-from ingredients.serializers import IngredientSerializer
 
 
 class SupplierListView(ListAPIView):
@@ -24,4 +26,5 @@ class SupplierIngredientListView(ListAPIView):
 
     def get_queryset(self):
         from ingredients.models import Ingredient
+
         return Ingredient.objects.filter(supplier_id=self.kwargs["pk"])

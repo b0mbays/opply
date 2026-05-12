@@ -13,10 +13,7 @@ const loading = ref(true);
 
 onMounted(async () => {
   const id = Number(route.params.id);
-  const [s, ings] = await Promise.all([
-    fetchSupplier(id),
-    fetchSupplierIngredients(id),
-  ]);
+  const [s, ings] = await Promise.all([fetchSupplier(id), fetchSupplierIngredients(id)]);
   supplier.value = s;
   ingredients.value = ings;
   loading.value = false;
@@ -46,7 +43,7 @@ onMounted(async () => {
           </div>
           <div class="info-row">
             <p class="info-label">Description</p>
-            <p class="info-value">{{ supplier.description || '—' }}</p>
+            <p class="info-value">{{ supplier.description || "—" }}</p>
           </div>
           <div class="info-row">
             <p class="info-label">Ingredients</p>
@@ -174,7 +171,7 @@ onMounted(async () => {
 /* Actions card */
 .actions-card {
   width: 240px;
-  background: #EDE9FE;
+  background: #ede9fe;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1.5rem;
@@ -247,7 +244,7 @@ onMounted(async () => {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
-  background: #FAFAFA;
+  background: #fafafa;
   border-bottom: 1px solid var(--border);
 }
 

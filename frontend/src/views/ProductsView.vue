@@ -38,12 +38,7 @@ function goToDetail(id: number) {
     <div class="page-header">
       <h1 class="page-title">Products</h1>
       <div class="header-actions">
-        <input
-          v-model="search"
-          class="search-input"
-          type="search"
-          placeholder="Search products…"
-        />
+        <input v-model="search" class="search-input" type="search" placeholder="Search products…" />
         <button class="btn-primary" @click="router.push({ name: 'product-create' })">
           + New Product
         </button>
@@ -71,7 +66,7 @@ function goToDetail(id: number) {
             @click="goToDetail(product.id)"
           >
             <td class="product-name">{{ product.name }}</td>
-            <td class="description">{{ product.description || '—' }}</td>
+            <td class="description">{{ product.description || "—" }}</td>
             <td>
               <span class="ingredient-badge">{{ product.ingredient_count }}</span>
             </td>
@@ -114,7 +109,9 @@ function goToDetail(id: number) {
   font-size: 0.875rem;
   outline: none;
   width: 220px;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
   color: var(--text);
   background: var(--white);
 }
@@ -167,7 +164,7 @@ function goToDetail(id: number) {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
-  background: #FAFAFA;
+  background: #fafafa;
   border-bottom: 1px solid var(--border);
 }
 
@@ -187,7 +184,7 @@ function goToDetail(id: number) {
 }
 
 .clickable-row:hover {
-  background: #F7F6FC;
+  background: #f7f6fc;
 }
 
 .product-name {
@@ -205,7 +202,7 @@ function goToDetail(id: number) {
 
 .ingredient-badge {
   display: inline-block;
-  background: #EDE9FE;
+  background: #ede9fe;
   color: var(--purple);
   font-weight: 700;
   font-size: 0.75rem;
@@ -222,7 +219,9 @@ function goToDetail(id: number) {
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .btn-outline:hover {

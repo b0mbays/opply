@@ -1,6 +1,9 @@
 from decimal import Decimal
+
 from rest_framework import serializers
+
 from ingredients.serializers import IngredientSerializer
+
 from .models import Order, OrderItem
 
 
@@ -33,10 +36,7 @@ class OrderSerializer(serializers.ModelSerializer):
         return obj.items.count()
 
     def get_total_amount(self, obj: Order) -> str:
-        total = sum(
-            Decimal(str(item.unit_price)) * item.quantity
-            for item in obj.items.all()
-        )
+        total = sum(Decimal(str(item.unit_price)) * item.quantity for item in obj.items.all())
         return str(total)
 
 

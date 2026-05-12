@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import Ingredient
 
 
@@ -7,4 +8,12 @@ class IngredientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ingredient
-        fields = ["id", "supplier_id", "supplier_name", "name", "description", "unit", "price_per_unit"]
+        fields = [
+            "id",
+            "supplier_id",
+            "supplier_name",
+            "name",
+            "description",
+            "unit",
+            "price_per_unit",
+        ]
