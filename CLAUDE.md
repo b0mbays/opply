@@ -162,11 +162,17 @@ Use these skills in order when implementing the interview feature:
 
 2. **`superpowers:writing-plans`** — once the design is settled, produce a concrete step-by-step implementation plan covering backend endpoint, serializer, frontend service, and view. Keeps the approach visible to the interviewer.
 
-3. **`superpowers:dispatching-parallel-agents`** — backend and frontend work are independent once the API contract is agreed. Run them in parallel to save time in a time-boxed session.
+3. **`superpowers:dispatching-parallel-agents`** — backend and frontend work are independent once the API contract is agreed. Run them in parallel to save time in a time-boxed session. 
 
 4. **`superpowers:verification-before-completion`** — before declaring done, confirm the stack is running, the endpoint responds correctly, and the UI works end-to-end in the browser.
 
+5. **`superpowers:subagent-driven-development`** - 
+
 Skills to skip in this context: `test-driven-development` (too slow for a timebox), `receiving-code-review` / `requesting-code-review` (no reviewer), `using-git-worktrees` (single feature, no isolation needed).
+
+## Agent Usage
+
+When dispatching subagents (e.g. via `superpowers:subagent-driven-development`), always use `general-purpose` as the subagent type for implementer, spec reviewer, and code quality reviewer roles. Do **not** use `gsd-executor` — it is designed for the GSD plugin workflow and carries GSD-specific behaviour (checkpoint protocols, deviation handling) that conflicts with the superpowers workflow.
 
 ---
 
